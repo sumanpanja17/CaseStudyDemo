@@ -1,0 +1,186 @@
+{
+  "_version": "1.81.0",
+  "sap.app": {
+    "id": "project",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.20.2",
+      "toolsId": "f8e48476-a079-463e-aace-10be08df1d0a"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/projectsrv/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "Project_Master-Open": {
+          "semanticObject": "Project_Master",
+          "action": "Open",
+          "title": "{{Project_Master-Open.flpTitle}}",
+          "subTitle": "{{Project_Master-Open.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.145.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "project.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ProjectMasterList",
+          "target": "ProjectMasterList"
+        },
+        {
+          "pattern": "ProjectMaster({key}):?query:",
+          "name": "ProjectMasterObjectPage",
+          "target": "ProjectMasterObjectPage"
+        },
+        {
+          "pattern": "ProjectMaster({key})/employeeproject({key2}):?query:",
+          "name": "EmployeeProjectObjectPage",
+          "target": "EmployeeProjectObjectPage"
+        }
+      ],
+      "targets": {
+        "ProjectMasterList": {
+          "type": "Component",
+          "id": "ProjectMasterList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/ProjectMaster",
+              "initialLoad": "Enabled",
+              "enhanceI18n": "i18n/i18n.properties",
+              "variantManagement": "None",
+              "navigation": {
+                "ProjectMaster": {
+                  "detail": {
+                    "route": "ProjectMasterObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ProjectMasterObjectPage": {
+          "type": "Component",
+          "id": "ProjectMasterObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ProjectMaster",
+              "enhanceI18n": "i18n/custom.properties",
+              "navigation": {
+                "employeeproject": {
+                  "detail": {
+                    "route": "EmployeeProjectObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "EmployeeProjectObjectPage": {
+          "type": "Component",
+          "id": "EmployeeProjectObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ProjectMaster/employeeproject"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}
