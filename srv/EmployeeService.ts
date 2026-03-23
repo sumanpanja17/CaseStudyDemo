@@ -300,7 +300,7 @@ module.exports = class MyDemoSrv extends cds.ApplicationService {
             if (isinsameyr && isinsameyr.ID !== req.data.ID ) {
                 req.error({
                     code   : 400,
-                    message: `Rating for year ${yearOnly} already exists for this employee.`,
+                    message: `Rating for year ${yearOnly} already exists for this Employee.`,
                     target : 'year'
                 });
             }
